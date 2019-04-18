@@ -28,7 +28,10 @@ export class EmployeeDetailsComponent implements OnInit {
     if (this._employeeid < 3) {
       this._employeeid = this._employeeid + 1;
     } else { this._employeeid = 1; }
-    this.router.navigate(['/employees', this._employeeid]);
+
+    this.router.navigate(['/employees', this._employeeid], {
+      queryParamsHandling : 'preserve'
+    });
   }
 
 }
