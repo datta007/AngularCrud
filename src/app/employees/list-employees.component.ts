@@ -50,6 +50,9 @@ export class ListEmployeesComponent implements OnInit {
     this.filteredEmployees = this.getfilteredemployee(this.searchTerm);
 
   }
+  onmousemove(): void {
+
+  }
   nextEmployee(): void {
     if (this.employeeToDisplay.id <= 2) {
       this.employeeToDisplay = this.employees[this.arrayIndex];
