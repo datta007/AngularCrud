@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Employee } from '../model/employee.model';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -50,10 +51,14 @@ export class EmployeeService {
    }
   ];
   constructor() { }
+
   getEmployees(): Employee[] {
       return this.listEmployees;
   }
 
+  getEmployee(employeeId: number) {
+      return this.listEmployees.find(e => e.id === employeeId);
+  }
   save(employee: Employee) {
     this.listEmployees.push(employee);
   }

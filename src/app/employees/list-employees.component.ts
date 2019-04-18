@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class ListEmployeesComponent implements OnInit {
   private employees: Employee[];
   employeeToDisplay: Employee;
+  searchTerm: string;
   private arrayIndex = 1;
   private dataFromChild: Employee;
   constructor(private employeeService: EmployeeService, private _router: Router) { }
@@ -25,7 +26,12 @@ export class ListEmployeesComponent implements OnInit {
   onClick(employeeId: number) {
 this._router.navigate(['/employees', employeeId]);
   }
+  changeemployeeName(): void {
+     const newEmployee: Employee[] = Object.assign([], this.employees);
+     newEmployee[0].name = 'Jordan';
+     this.employees = newEmployee;
 
+  }
   nextEmployee(): void {
     if (this.employeeToDisplay.id <= 2) {
       this.employeeToDisplay = this.employees[this.arrayIndex];

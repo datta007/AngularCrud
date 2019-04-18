@@ -4,6 +4,7 @@ import { ListEmployeesComponent } from './employees/list-employees.component';
 import { CreateEmployeeComponent } from './employees/create-employee.component';
 import { CreateEmployeeCanDeactivateGaurdService } from './employees/create-employee-can-deactivate-gaurd.service';
 import { EmployeeDetailsComponent } from './employees/employee-details.component';
+
 const appRoutes: Routes = [
   { path: 'list', component: ListEmployeesComponent },
   { path: 'employees/:id', component: EmployeeDetailsComponent },
