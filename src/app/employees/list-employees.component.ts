@@ -27,9 +27,13 @@ export class ListEmployeesComponent implements OnInit {
 this._router.navigate(['/employees', employeeId]);
   }
   changeemployeeName(): void {
-     const newEmployee: Employee[] = Object.assign([], this.employees);
-     newEmployee[0].name = 'Jordan';
-     this.employees = newEmployee;
+    this.employees[0].name = 'Jorden';
+    //  const newEmployee: Employee[] = Object.assign([], this.employees);
+    //  newEmployee[0].name = 'Jordan';
+    //  this.employees = newEmployee;
+
+  }
+  onmousemove(): void {
 
   }
   nextEmployee(): void {
