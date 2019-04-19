@@ -11,6 +11,7 @@ import { ConfirmEqualValidatorDirective } from './shared/confirm-equal-validator
 import { DisplayEmployeeComponent } from './employees/display-employee.component';
 import { EmployeeDetailsComponent } from './employees/employee-details.component';
 import { EmployeeFilterPipe } from './employees/employee-filter.pipe';
+import { EmployeeListResolverService } from './employees/employee-list-resolver.service';
 
 
 @NgModule({
