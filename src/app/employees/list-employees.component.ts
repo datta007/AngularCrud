@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../model/employee.model';
 import { EmployeeService } from './employee.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   // selector: 'app-list-employees',
   templateUrl: './list-employees.component.html',
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ListEmployeesComponent implements OnInit {
 
-  constructor(private employeeService: EmployeeService, private _router: Router) { }
+
   private employees: Employee[];
   employeeToDisplay: Employee;
   filteredEmployees: Employee[];
@@ -26,6 +26,8 @@ export class ListEmployeesComponent implements OnInit {
     this.filteredEmployees = this.getfilteredemployee(value);
   }
 
+  constructor(private employeeService: EmployeeService, private _router: Router, private _route: ActivatedRoute) { }
+
   getfilteredemployee(searchTerm: string) {
 
     return this.employees.filter(x => x.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
@@ -33,8 +35,36 @@ export class ListEmployeesComponent implements OnInit {
 
   ngOnInit() {
     this.employees = this.employeeService.getEmployees();
+    // Below is Snapshot Approach
+    // if (this._route.snapshot.queryParamMap.has('searchTerm')) {
+    //   this.searchTerm = this._route.snapshot.queryParamMap.get('searchTerm');
+    // } else {
+    //   this.filteredEmployees = this.employees;
+    // }
+
+    // Below is Observable Approach
+    this._route.queryParamMap.subscribe((queryParams) => {
+      if (queryParams.has('searchTerm')) {
+        this.searchTerm = queryParams.get('searchTerm');
+      } else {
+        this.filteredEmployees = this.employees;
+      }
+
+    });
+
+
+
+
     this.employeeToDisplay = this.employees[0];
-    this.filteredEmployees = this.employees;
+
+    // console.log(this._route.snapshot.queryParamMap.has('searchTerm'));
+    // console.log(this._route.snapshot.queryParamMap.get('searchTerm'));
+    // console.log(this._route.snapshot.queryParamMap.getAll('searchTerm'));
+    // console.log(this._route.snapshot.queryParamMap.keys);
+
+    // console.log(this._route.snapshot.paramMap.keys);
+
+
   }
   handleNotify(eventData: Employee) {
     this.dataFromChild = eventData;
@@ -42,7 +72,7 @@ export class ListEmployeesComponent implements OnInit {
 
   onClick(employeeId: number) {
     this._router.navigate(['/employees', employeeId], {
-      queryParams: { 'searchTerm': this.searchTerm, 'testParam': 'testValule'}
+      queryParams: { 'searchTerm': this.searchTerm, 'testParam': 'testValule' }
 
     });
   }
