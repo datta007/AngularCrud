@@ -26,7 +26,17 @@ export class ListEmployeesComponent implements OnInit {
     this.filteredEmployees = this.getfilteredemployee(value);
   }
 
-  constructor(private employeeService: EmployeeService, private _router: Router, private _route: ActivatedRoute) { }
+  constructor(private employeeService: EmployeeService, private _router: Router,
+    private _route: ActivatedRoute) {
+    this.employees = this._route.snapshot.data['employeeList'];
+    this._route.queryParamMap.subscribe((queryParams) => {
+      if (queryParams.has('searchTerm')) {
+        this.searchTerm = queryParams.get('searchTerm');
+      } else {
+        this.filteredEmployees = this.employees;
+      }
+    });
+  }
 
   getfilteredemployee(searchTerm: string) {
 
@@ -34,17 +44,6 @@ export class ListEmployeesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.employeeService.getEmployees().subscribe((empList) => {
-      this.employees = empList;
-      // Below is Observable Approach
-      this._route.queryParamMap.subscribe((queryParams) => {
-        if (queryParams.has('searchTerm')) {
-          this.searchTerm = queryParams.get('searchTerm');
-        } else {
-          this.filteredEmployees = this.employees;
-        }
-      });
-    });
 
     this.employeeToDisplay = this.employees[0];
     // Below is Snapshot Approach
