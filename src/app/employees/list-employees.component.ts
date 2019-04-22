@@ -61,26 +61,26 @@ export class ListEmployeesComponent implements OnInit {
 
 
   }
-  handleNotify(eventData: Employee) {
-    this.dataFromChild = eventData;
-  }
+  // handleNotify(eventData: Employee) {
+  //   this.dataFromChild = eventData;
+  // }
 
-  onClick(employeeId: number) {
-    this._router.navigate(['/employees', employeeId], {
-      queryParams: { 'searchTerm': this.searchTerm, 'testParam': 'testValule' }
+  // onClick(employeeId: number) {
+  //   this._router.navigate(['/employees', employeeId], {
+  //     queryParams: { 'searchTerm': this.searchTerm, 'testParam': 'testValule' }
 
-    });
-  }
-  changeemployeeName(): void {
-    // const newEmployee: Employee[] = Object.assign([], this.employees);
-    this.employees[0].name = 'Jordan';
-    // this.employees = newEmployee;
-    this.filteredEmployees = this.getfilteredemployee(this.searchTerm);
+  //   });
+  // }
+  // changeemployeeName(): void {
+  //   // const newEmployee: Employee[] = Object.assign([], this.employees);
+  //   this.employees[0].name = 'Jordan';
+  //   // this.employees = newEmployee;
+  //   this.filteredEmployees = this.getfilteredemployee(this.searchTerm);
 
-  }
-  onmousemove(): void {
+  // }
+  // onmousemove(): void {
 
-  }
+  // }
   nextEmployee(): void {
     if (this.employeeToDisplay.id <= 2) {
       this.employeeToDisplay = this.employees[this.arrayIndex];
