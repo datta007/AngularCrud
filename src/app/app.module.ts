@@ -12,6 +12,7 @@ import { DisplayEmployeeComponent } from './employees/display-employee.component
 import { EmployeeDetailsComponent } from './employees/employee-details.component';
 import { EmployeeFilterPipe } from './employees/employee-filter.pipe';
 import { EmployeeListResolverService } from './employees/employee-list-resolver.service';
+import { PagenotfoundComponent } from './pagenotfound.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { EmployeeListResolverService } from './employees/employee-list-resolver.
     ConfirmEqualValidatorDirective,
     DisplayEmployeeComponent,
     EmployeeDetailsComponent,
-    EmployeeFilterPipe
+    EmployeeFilterPipe,
+    PagenotfoundComponent
   ],
   imports: [
     BrowserModule,
