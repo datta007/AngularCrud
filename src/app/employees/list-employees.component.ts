@@ -40,7 +40,7 @@ export class ListEmployeesComponent implements OnInit {
 
   getfilteredemployee(searchTerm: string) {
 
-    return this.employees.filter(x => x.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
+    return this.employees.filter(x => x.fname.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
   }
 
   ngOnInit() {
