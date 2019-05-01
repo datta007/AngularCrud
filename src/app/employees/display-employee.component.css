@@ -12,3 +12,6 @@ button.btn{
 .btn-space {
     margin-right: 5px;
 }
+.pointerCursor{
+    cursor: pointer;
+}
