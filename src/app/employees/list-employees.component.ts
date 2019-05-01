@@ -90,5 +90,14 @@ export class ListEmployeesComponent implements OnInit {
       this.arrayIndex = 1;
     }
   }
+  onDeleteNotification(id: number) {
+    if (id > 0) {
+      const i = this.filteredEmployees.findIndex(e => e.id === id);
+      if (i !== -1) {
+        this.filteredEmployees.splice(i, 1);
+      }
+
+    }
+  }
 
 }
