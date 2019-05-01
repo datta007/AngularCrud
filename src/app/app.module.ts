@@ -13,6 +13,7 @@ import { EmployeeDetailsComponent } from './employees/employee-details.component
 import { EmployeeFilterPipe } from './employees/employee-filter.pipe';
 import { EmployeeListResolverService } from './employees/employee-list-resolver.service';
 import { PagenotfoundComponent } from './pagenotfound.component';
+import { AccordianComponent } from './shared/accordian.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { PagenotfoundComponent } from './pagenotfound.component';
     DisplayEmployeeComponent,
     EmployeeDetailsComponent,
     EmployeeFilterPipe,
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    AccordianComponent
   ],
   imports: [
     BrowserModule,
