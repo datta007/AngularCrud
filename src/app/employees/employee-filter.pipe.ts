@@ -16,7 +16,7 @@ private counter = 0;
         return employees;
     }
 
-    return employees.filter(employee => employee.name.toLocaleLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
+    return employees.filter(employee => employee.fname.toLocaleLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
   }
 
 }

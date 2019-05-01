@@ -71,11 +71,14 @@ export class DisplayEmployeeComponent implements OnInit {
   }
 
   VeiwEmployee() {
-    console.log(this.employee.id);
-    this._router.navigate(['/employees', this.employee.id], {
+        this._router.navigate(['/employees', this.employee.id], {
       queryParams: { 'searchTerm': this.searchTerm }
 
     });
+  }
+
+  editEmployee() {
+    this._router.navigate(['/edit', this.employee.id]);
   }
 
 }

@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Employee } from '../model/employee.model';
-import { Observable, of} from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-
-
 
 @Injectable({
   providedIn: 'root'
@@ -11,58 +9,72 @@ import { delay } from 'rxjs/operators';
 export class EmployeeService {
   private listEmployees: Employee[] = [
     {
-    id: 1,
-    name: 'Mark',
-    gender: 'Male',
-    email: 'mark@gmail.com',
-    phonenumber: 1234567,
-    contactPreference: 'Email',
-    dateOfBirth: new Date('4/5/1987'),
-    department: '1',
-    isActive: true,
-    photoPath: 'assets/images/mark.png',
-    password: '',
-    confirmPassword: ''
-   },
-   {
-    id: 2,
-    name: 'Mary',
-    gender: 'Female',
-    email: 'mary@gmail.com',
-    phonenumber: 8633332,
-    contactPreference: 'Email',
-    dateOfBirth: new Date('9/15/1986'),
-    department: '2',
-    isActive: true,
-    photoPath: 'assets/images/mary.png',
-    password: '',
-    confirmPassword: ''
-   },
-   {
-    id: 3,
-    name: 'John',
-    gender: 'Male',
-    email: 'john@gmail.com',
-    phonenumber: 2457167,
-    contactPreference: 'Email',
-    dateOfBirth: new Date('2/14/1977'),
-    department: '3',
-    isActive: true,
-    photoPath: 'assets/images/john.png',
-    password: '',
-    confirmPassword: ''
-   }
+      id: 1,
+      fname: 'Mark',
+      gender: 'Male',
+      email: 'mark@pragimetech.com',
+      phonenumber: null,
+      contactPreference: 'Email',
+      dateOfBirth: new Date('4/5/1987'),
+      department: '1',
+      isActive: true,
+      photoPath: 'assets/images/mark.png',
+      password: '',
+      confirmPassword: ''
+    },
+    {
+      id: 2,
+      fname: 'Mary',
+      gender: 'Female',
+      email: 'mary@gmail.com',
+      phonenumber: 8633332,
+      contactPreference: 'Phone',
+      dateOfBirth: new Date('9/15/1986'),
+      department: '2',
+      isActive: true,
+      photoPath: 'assets/images/mary.png',
+      password: '',
+      confirmPassword: ''
+    },
+    {
+      id: 3,
+      fname: 'John',
+      gender: 'Male',
+      email: 'john@gmail.com',
+      phonenumber: null,
+      contactPreference: 'Email',
+      dateOfBirth: new Date('2/14/1977'),
+      department: '3',
+      isActive: true,
+      photoPath: 'assets/images/john.png',
+      password: '',
+      confirmPassword: ''
+    }
   ];
   constructor() { }
 
   getEmployees(): Observable<Employee[]> {
-      return of(this.listEmployees).pipe(delay(2000));
+    return of(this.listEmployees).pipe(delay(2000));
   }
 
   getEmployee(employeeId: number) {
-      return this.listEmployees.find(e => e.id === employeeId);
+    return this.listEmployees.find(e => e.id === employeeId);
   }
   save(employee: Employee) {
-    this.listEmployees.push(employee);
+    if (employee.id === null) {
+      // reduce() method reduces the array to a single value. This method executes
+      // the provided function for each element of the array (from left-to-right)
+      // When we implement the server side service to save data to the database
+      // table, we do not have to compute the id, as the server will assing it
+      const maxId = this.listEmployees.reduce(function (e1, e2) {
+        return (e1.id > e2.id) ? e1 : e2;
+      }).id;
+      employee.id = maxId + 1;
+
+      this.listEmployees.push(employee);
+    } else {
+      const foundIndex = this.listEmployees.findIndex(e => e.id === employee.id);
+      this.listEmployees[foundIndex] = employee;
+    }
   }
 }

@@ -3,8 +3,8 @@ import { NgForm } from '@angular/forms';
 import { Department } from '../model/department.model';
 import { BsDatepickerConfig } from 'node_modules/ngx-bootstrap/datepicker';
 import { Employee } from '../model/employee.model';
-import { EmployeeService} from '../employees/employee.service';
-import { Router } from '@angular/router';
+import { EmployeeService } from '../employees/employee.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -18,26 +18,14 @@ export class CreateEmployeeComponent implements OnInit {
   // gender = 'male';
   isActive = true;
   previewPhoto = false;
-  employee: Employee = {
-    id: null,
-    name: null,
-    gender: null,
-    contactPreference: null,
-    phonenumber: null,
-    email: null,
-    dateOfBirth: null,
-    department: 'select',
-    isActive: null,
-    photoPath: null,
-    password: null,
-    confirmPassword: null
-  };
+  employee: Employee;
+  panelTitle: string;
 
   departments: Department[] = [
-    { id: 1, name: 'Help Desk'},
-    { id: 2, name: 'HR'},
-    { id: 3, name: 'IT'},
-    { id: 4, name: 'Payroll'}
+    { id: 1, name: 'Help Desk' },
+    { id: 2, name: 'HR' },
+    { id: 3, name: 'IT' },
+    { id: 4, name: 'Payroll' }
 
   ];
 
@@ -56,9 +44,9 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   togglePhotoPreview() {
-      this.previewPhoto = !this.previewPhoto;
+    this.previewPhoto = !this.previewPhoto;
   }
-  constructor(private employeeService: EmployeeService, private router: Router) {
+  constructor(private employeeService: EmployeeService, private router: Router, private _route: ActivatedRoute) {
     this.datePickerConfig = Object.assign({},
       {
         containerClass: 'theme-dark-blue',
@@ -69,7 +57,37 @@ export class CreateEmployeeComponent implements OnInit {
       });
   }
 
+  private getEmployee(id: number) {
+    if (id === 0) {
+      this.employee = {
+        id: null,
+        fname: null,
+        gender: null,
+        contactPreference: null,
+        phonenumber: null,
+        email: null,
+        dateOfBirth: null,
+        department: 'select',
+        isActive: null,
+        photoPath: null,
+        password: null,
+        confirmPassword: null
+      };
+      this.createEmployeeForm.reset();
+      this.panelTitle = 'Create Employee';
+
+    }  else {
+      this.employee = Object.assign({}, this.employeeService.getEmployee(id));
+      this.panelTitle = 'Edit Employee';
+    }
+
+  }
+
   ngOnInit() {
+    this._route.paramMap.subscribe(parameterMap => {
+      const id = +parameterMap.get('id');
+      this.getEmployee(id);
+    });
   }
 
 }

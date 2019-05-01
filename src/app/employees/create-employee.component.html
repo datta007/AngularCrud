@@ -1,7 +1,7 @@
 <form #employeeForm="ngForm" class="form-horizontal" (ngSubmit)="saveEmployee(employeeForm)">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title">Create Employee</h3>
+      <h3 class="panel-title">{{panelTitle}}</h3>
     </div>
     <div class="panel-body">
 
@@ -9,7 +9,7 @@
         [class.has-success]="nameControl.touched">
         <label class="control-label col-sm-2" for="name">Name</label>
         <div class="col-sm-4">
-          <input type="text" [(ngModel)]="employee.name" name="name" id="name" class="form-control" required
+          <input type="text" [(ngModel)]="employee.fname" name="name" id="name" class="form-control" required
             #nameControl="ngModel">
           <span class="help-block" *ngIf="nameControl.invalid && nameControl.touched">Full Name is Required</span>
         </div>
@@ -21,13 +21,13 @@
         <!-- <div class="form-control"> -->
         <label class="radio-inline">
           <div class="col-sm-4">
-            <input id="gender" type="radio" name="gender" value="male" [(ngModel)]="employee.gender" required
+            <input id="gender" type="radio" name="gender" value="Male" [(ngModel)]="employee.gender" required
               #gender="ngModel"> Male
           </div>
         </label>
         <label class="radio-inline">
           <div class="col-sm-4">
-            <input id="gender" type="radio" name="gender" value="female" [(ngModel)]="employee.gender" required
+            <input id="gender" type="radio" name="gender" value="Female" [(ngModel)]="employee.gender" required
               #gender="ngModel">Female
           </div>
         </label>
@@ -66,13 +66,13 @@
         <!-- <div class="form-control">     -->
         <label class="radio-inline">
           <div class="col-sm-4">
-            <input type="radio" name="contactPreference" required #contactPreference="ngModel" value="email"
+            <input type="radio" name="contactPreference" required #contactPreference="ngModel" value="Email"
               [(ngModel)]="employee.contactPreference">Email
           </div>
         </label>
         <label class="radio-inline">
           <div class="col-sm-4">
-            <input type="radio" name="contactPreference" value="phone" required #contactPreference="ngModel"
+            <input type="radio" name="contactPreference" value="Phone" required #contactPreference="ngModel"
               [(ngModel)]="employee.contactPreference">
             Phone
           </div>
@@ -91,7 +91,7 @@
           <span class="help-block" *ngIf="email.errors?.required && email.touched"> Email is required </span>
           <span class="help-block" *ngIf="email.errors?.email && email.touched"> Email is invalid </span> -->
           <input pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(pragimtech)\.com$"
-            [required]="contactPreference.value=='email'" id="email" type="text" class="form-control" name="email"
+            [required]="contactPreference.value=='Email'" id="email" type="text" class="form-control" name="email"
             [(ngModel)]="employee.email" #email="ngModel">
           <span class="help-block" *ngIf="email.errors?.required && email.touched"> Email is required </span>
           <span class="help-block" *ngIf="email.errors?.pattern && email.touched"> Email is Invalid </span>
@@ -101,7 +101,7 @@
         <label class="control-label col-sm-2" for="phonenumber">Phone Number</label>
         <div class="col-sm-4">
           <input id="phonenumber" type="text" class="form-control" name="phonenumber"
-            [required]="contactPreference.value=='phone'" #phonenumber="ngModel" [(ngModel)]="employee.phonenumber">
+            [required]="contactPreference.value=='Phone'" #phonenumber="ngModel" [(ngModel)]="employee.phonenumber">
           <span class="help-block" *ngIf="phonenumber.invalid && phonenumber.touched">phone Number is Required</span>
         </div>
       </div>
@@ -115,7 +115,7 @@
         </div>
         <span class="help-block" *ngIf="isActive.errors?.required && isActive.touched"> Is Active is required </span>
       </div>
-      <div ngModelGroup="passwordGroup" [class.has-error]="confirmPassword.touched && confirmPassword.invalid && !confirmPassword.errors?.required">
+      <!-- <div ngModelGroup="passwordGroup" [class.has-error]="confirmPassword.touched && confirmPassword.invalid && !confirmPassword.errors?.required">
       <div class="form-group" [class.has-error]="password.touched && password.invalid">
         <label for="password" class="control-label col-sm-2">Password</label>
         <div class="col-sm-4">
@@ -125,8 +125,8 @@
             Password is required
           </span>
         </div>
-      </div>
-
+      </div> -->
+<!-- 
       <div class="form-group" [class.has-error]="confirmPassword.touched && confirmPassword.invalid">
         <label for="confirmPassword" class="control-label col-sm-2">Confirm Password</label>
         <div class="col-sm-4">
@@ -141,7 +141,7 @@
           </span>
         </div>
       </div>
-    </div>
+    </div> -->
 
       <div class="form-group" [class.has-error]="photoPath.invalid && photoPath.touched">
         <label class="control-label col-sm-2" for="photoPath">Photo Path</label>
@@ -155,14 +155,14 @@
 
       <div class="form-group">
         <label class="control-label col-sm-2"></label>
-        <button type="button" (click)="togglePhotoPreview()" class="col-sm-2 btn btn-primary">
+        <button type="button" (click)="togglePhotoPreview()" *ngIf="employee.photoPath !== '' && employee.photoPath !== null" class="col-sm-2 btn btn-primary">
           {{previewPhoto? "Hide" : "Show"}} Preview </button>
       </div>
 
       <div class="form-group">
         <label class="control-label col-sm-2"></label>
         <div class="col-sm-4">
-          <img [src]="employee.photoPath" height="200" width="200" *ngIf="previewPhoto">
+          <img [src]="employee.photoPath" height="200" width="200" *ngIf="previewPhoto && employee.photoPath !== '' && employee.photoPath !== null">
         </div>
       </div>
 
