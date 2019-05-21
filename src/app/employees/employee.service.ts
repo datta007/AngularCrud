@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Employee } from '../model/employee.model';
-import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -51,12 +52,28 @@ export class EmployeeService {
       confirmPassword: ''
     }
   ];
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   getEmployees(): Observable<Employee[]> {
-    return of(this.listEmployees).pipe(delay(2000));
+    // return of(this.listEmployees).pipe(delay(2000));
+    return this.httpClient.get<Employee[]>('http://localhost:3000/employees')
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
   }
-
+  handleError(errorResponse: HttpErrorResponse) {
+    let errorMessage = '';
+    if (errorResponse.error instanceof ErrorEvent) {
+      // client-side error
+      errorMessage = `Error: ${errorResponse.error.message}`;
+    } else {
+      // server-side error
+      errorMessage = `Error Code: ${errorResponse.status}\nMessage: ${errorResponse.message}`;
+    }
+    // window.alert(errorMessage);
+    return throwError(errorMessage);
+  }
   getEmployee(employeeId: number) {
     return this.listEmployees.find(e => e.id === employeeId);
   }

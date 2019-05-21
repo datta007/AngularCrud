@@ -8,7 +8,7 @@ import { EmployeeService } from './employee.service';
   providedIn: 'root'
 })
 export class EmployeeListResolverService implements Resolve<Employee[]> {
-  constructor(private _employeeService: EmployeeService) { }
+  constructor(private _employeeService: EmployeeService, public error: any = null) { }
 
   resolve (route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Employee[]> {
     return this._employeeService.getEmployees();

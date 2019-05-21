@@ -11,10 +11,9 @@ import { ConfirmEqualValidatorDirective } from './shared/confirm-equal-validator
 import { DisplayEmployeeComponent } from './employees/display-employee.component';
 import { EmployeeDetailsComponent } from './employees/employee-details.component';
 import { EmployeeFilterPipe } from './employees/employee-filter.pipe';
-import { EmployeeListResolverService } from './employees/employee-list-resolver.service';
 import { PagenotfoundComponent } from './pagenotfound.component';
 import { AccordianComponent } from './shared/accordian.component';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,6 +32,7 @@ import { AccordianComponent } from './shared/accordian.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    HttpClientModule,
     BsDatepickerModule.forRoot()
   ],
 
